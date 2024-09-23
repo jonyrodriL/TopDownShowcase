@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -23,10 +24,23 @@ public class PauseMenu : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 0)
         {
-            //hide the pause canvas again
-            GetComponent <Canvas>().enabled = false;
-            //reset the time scale to 1
-            Time.timeScale = 1;
+            Resume();
         }
+        
+    }
+    public void Resume()
+    {
+        GetComponent<Canvas>().enabled = false;
+        //reset the time scale to 1
+        Time.timeScale = 1;
+    }
+    public void Retry()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
