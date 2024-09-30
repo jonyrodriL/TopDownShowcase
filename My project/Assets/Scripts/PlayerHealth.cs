@@ -8,17 +8,21 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField]
-    int health = 10;
-    Image HealthBar;
+    float health = 10;
+    [SerializeField]
+    string levelToLoad;
+    [SerializeField]
     float maxHealth;
+    [SerializeField]
+    Image healthBar;
 
 
     // Start is called before the first frame update
     void Start()
     {
         maxHealth = health;
-        HealthBar = GetComponentsInChildren<Image>()[1];
-        HealthBar.fillAmount = health / maxHealth;
+        healthBar = GetComponentsInChildren<Image>()[1];
+        healthBar.fillAmount = health / maxHealth;
 
     }
 
@@ -36,6 +40,8 @@ public class PlayerHealth : MonoBehaviour
         {
             //health = health - 1;
             health -= 1;
+            healthBar.fillAmount = health / maxHealth;
+
             //health--;
         }
     }
@@ -44,6 +50,8 @@ public class PlayerHealth : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             health -= 1;
+            healthBar.fillAmount = health / maxHealth;
+
         }
         if (health <= 0)
         {
@@ -57,8 +65,15 @@ public class PlayerHealth : MonoBehaviour
 
         {
             health -= 1;
+            healthBar.fillAmount = health / maxHealth;
+
         }
+        if (health <= 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
     }
-    
+
 
 }
